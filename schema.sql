@@ -1,10 +1,12 @@
-DROP TABLE USER_PROFILE_FULL_DATA;
-DROP TABLE USER_LISTS_USER_FULL_DATA;
-DROP TABLE USER_JOBS_USER_FULL_DATA;
-DROP DATABASE workr IF EXISTS;
+DROP TABLE IF EXISTS "USER_PROFILE_FULL_DATA";
+DROP TABLE IF EXISTS "USER_ACTIVITIES_USER_FULL_DATA";
+DROP TABLE IF EXISTS "USER_LISTS_USER_FULL_DATA";
+DROP TABLE IF EXISTS "USER_JOBS_USER_FULL_DATA";
+DROP DATABASE IF EXISTS workr;
 CREATE DATABASE workr;
+\connect workr
 
-CREATE TABLE USER_PROFILE_FULL_DATA (
+CREATE TABLE "USER_PROFILE_FULL_DATA" (
   "id" serial PRIMARY KEY,
   "email" varchar UNIQUE NOT NULL,
   "createdAt" timestamp,
@@ -14,7 +16,7 @@ CREATE TABLE USER_PROFILE_FULL_DATA (
   "useageJobsTotalCount" integer
 );
 
-CREATE TABLE USER_LISTS_USER_FULL_DATA (
+CREATE TABLE "USER_LISTS_USER_FULL_DATA" (
   "id" serial PRIMARY KEY,
   "columnName" varchar,
   "createdAt" timestamp,
@@ -22,7 +24,7 @@ CREATE TABLE USER_LISTS_USER_FULL_DATA (
   "boardName" varchar
 );
 
-CREATE TABLE USER_JOBS_USER_FULL_DATA (
+CREATE TABLE "USER_JOBS_USER_FULL_DATA" (
   "id" serial PRIMARY KEY,
   "createdAt" timestamp,
   "title" varchar,
@@ -45,3 +47,25 @@ CREATE TABLE USER_JOBS_USER_FULL_DATA (
   "creatorUserEmail" varchar
 );
 
+CREATE TABLE "USER_ACTIVITIES_USER_FULL_DATA" (
+  "id" serial PRIMARY KEY,
+  "createdAt" timestamp,
+  "title" varchar,
+  "note" varchar,
+  "createdByWorkflow" boolean,
+  "completed" boolean,
+  "completedAt" timestamp,
+  "startAt" timestamp,
+  "endAt" timestamp,
+  "jobId" int,
+  -- foreign key
+  "jobTitle" varchar,
+  "boardID" int,
+  -- foreign key
+  "boardName" varchar,
+  "companyId" varchar,
+  "companyName" varchar,
+  "companyDomain" varchar,
+  "activityCategoryID" varchar,
+  "activityCategoryName" varchar
+);
